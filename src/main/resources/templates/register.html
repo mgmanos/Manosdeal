@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background: #f9f9f9;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            width: 120px;  /* Fixed label width */
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            flex: 1; /* Take the remaining space */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .title {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Add this inside the .container div, above the form -->
+    <div th:if="${successMessage}" id="successMessage" role="alert" aria-live="assertive" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" id="errorMessage" role="alert" aria-live="assertive" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <h1 class="title">User Register</h1>
+
+    <!-- Thymeleaf form binding -->
+    <form th:action="@{/registeruser}" th:object="${registerRequest}" method="post">
+
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Email</label>
+            <input type="email" id="username" th:field="*{username}" placeholder="Email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rolename">Select Roles</label>
+            <select id="rolename" th:field="*{rolename}" multiple size="1">
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+
+            </select>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/login">Login</a></p>
+</div>
+
+</body>
+</html>
